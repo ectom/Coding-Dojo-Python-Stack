@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Survey Form Results</title>
+    </head>
+    <body>
+        <fieldset style='background-color: lightgreen'>
+            Thanks for submitting this form!You have submitted this form {{request.session.counter}} times now.
+        </fieldset>
+        <fieldset>
+            <h1 style='text-decoration: underline'>Submitted Information</h1>
+            <p>Name: {{request.session.data.the_name}}</p>
+            <p>Dojo Location: {{request.session.data.the_location}}</p>
+            <p>Favorite Language: {{request.session.data.the_language}}</p>
+            <p>Comment: {{request.session.data.the_comment}}</p>
+            <form class="" action="/" method="post">
+                {% csrf_token %}
+                <p style='align: right'><button type="submit" name="button">Go Back</button></p>
+            </form>
+        </fieldset>
+    </body>
+</html>

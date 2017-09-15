@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Email Validation</title>
+    </head>
+    <body>
+        {% with flashed = get_flashed_messages() %}
+            {{flashed}}
+        {% endwith %}
+        <form class="" action="/process" method="post">
+            Email Address: <input type="text" name="email" value="">
+            <button type="submit" name="submit">Submit</button>
+        </form>
+    </body>
+</html>

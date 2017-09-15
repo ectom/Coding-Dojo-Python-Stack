@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        Your Gold: {{session['gold']}}
+        <form action="/process_money" method="post">
+            <input type="hidden" name="building" value="farm" />
+            <p>Farm (earns 10-20 gold)</p>
+            <input type="submit" value="Find Gold!"/>
+        </form>
+        <form action="/process_money" method="post">
+            <input type="hidden" name="building" value="cave" />
+            <p>Cave (earns 5-10 gold)</p>
+            <input type="submit" value="Find Gold!"/>
+        </form>
+        <form action="/process_money" method="post">
+            <input type="hidden" name="building" value="house" />
+            <p>House (earns 2-5 gold)</p>
+            <input type="submit" value="Find Gold!"/>
+        </form>
+        <form action="/process_money" method="post">
+            <input type="hidden" name="building" value="casino" />
+            <p>Casino (earns/takes 0-50 gold)</p>
+            <input type="submit" value="Find Gold!"/>
+        </form>
+        <textarea name="name" rows="8" cols="80">
+            {%for i in r%}
+                {{i}}
+            {%endfor%}
+        </textarea>
+    </body>
+</html>

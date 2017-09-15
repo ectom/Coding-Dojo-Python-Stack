@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Session Words</title>
+    </head>
+    <body>
+        <div class=""style='display: inline-block; border-right: 1px soldi black' >
+            <h1>Add New Words</h1>
+            <form class="" action="/process" method="post">
+                {% csrf_token %}
+                <p><input type="text" name="word" value=""></p>
+                <p>Choose color</p>
+                <input type="radio" name="color" value="red">Red<br>
+                <input type="radio" name="color" value="green">Green<br>
+                <input type="radio" name="color" value="blue">Blue<br>
+                <input type="checkbox" name="bold" value="bold">show in BIG format!
+                <button type="submit" name="button">Add to session</button>
+            </form>
+        </div>
+        <div class="" style="display: inline-block; border-left: 1px solid black">
+            <form class="" action="/clear" method="post">
+                {% csrf_token %}
+                <button type="submit" name="button">Clear Session</button>
+            </form>
+            {% for word in request.session.data %}
+                <p><span style='color: {{word.color}}; font-weight: {{word.bold}}'>{{word.word}} </span> {{word.time}}</p>
+            {% endfor %}
+        </div>
+    </body>
+</html>

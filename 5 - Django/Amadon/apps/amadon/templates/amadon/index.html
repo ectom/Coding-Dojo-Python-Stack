@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Amadon Store</title>
+    </head>
+    <body>
+        <h1>Amadon Store</h1>
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+            <tr><form class="" action="/process" method="post">
+                <td>Dojo T-Shirt</td>
+                <input type="hidden" name="item" value="Dojo T-Shirt">
+                <td>$19.99</td>
+                <input type="hidden" name="product" value="001">
+                <td>
+                    {% csrf_token %}
+                    <select class="" name="quantity">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                    <button type="submit" name="button">Buy!</button>
+                </td>
+            </form></tr>
+            <tr><form class="" action="/process" method="post">
+                <td>Dojo Sweater</td>
+                <input type="hidden" name="item" value="Dojo Sweater">
+                <td>$29.99</td>
+                <input type="hidden" name="product" value="002">
+                <td>
+                    {% csrf_token %}
+                    <select class="" name="quantity">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                    <button type="submit" name="button">Buy!</button>
+                </td>
+            </form></tr>
+            <tr><form class="" action="/process" method="post">
+                <td>Dojo Cup</td>
+                <input type="hidden" name="item" value="Dojo Cup">
+                <td>$4.99</td>
+                <input type="hidden" name="product" value="003">
+                <td>
+                    {% csrf_token %}
+                    <select class="" name="quantity">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                    <button type="submit" name="button">Buy!</button>
+                </td>
+            </form></tr>
+            <tr><form class="" action="/process" method="post">
+                <td>Algorithm Book</td>
+                <input type="hidden" name="item" value="Algorithm Book">
+                <td>49.99</td>
+                <input type="hidden" name="product" value="004">
+                <td>
+                    {% csrf_token %}
+                    <select class="" name="quantity">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                    <button type="submit" name="button">Buy!</button>
+                </td>
+            </form></tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </body>
+</html>

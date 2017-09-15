@@ -1,0 +1,107 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf600
+{\fonttbl\f0\fnil\fcharset0 Monaco;\f1\fnil\fcharset0 AndaleMono;\f2\fnil\fcharset0 HelveticaNeue;
+}
+{\colortbl;\red255\green255\blue255;\red242\green242\blue242;\red0\green0\blue0;\red38\green38\blue38;
+\red242\green242\blue242;\red52\green52\blue52;\red255\green255\blue255;\red52\green52\blue52;\red255\green255\blue255;
+\red38\green38\blue38;\red242\green242\blue242;}
+{\*\expandedcolortbl;\csgray\c100000;\csgray\c95825;\csgray\c0\c85000;\cssrgb\c20000\c20000\c20000;
+\cssrgb\c96078\c96078\c96078;\cssrgb\c26667\c26667\c26667;\cssrgb\c100000\c100000\c100000;\cssrgb\c26667\c26667\c26667;\cssrgb\c100000\c100000\c100000;
+\cssrgb\c20000\c20000\c20000;\cssrgb\c96078\c96078\c96078;}
+\margl1440\margr1440\vieww15440\viewh9080\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs20 \cf2 \cb3 \CocoaLigature0 cd /Users/ethantom/Desktop/Coding_Dojo/python_stack/Django/PythonBlackBelt \
+
+\f1\fs24 \cf4 \cb5 \expnd0\expndtw0\kerning0
+\CocoaLigature1 pip freeze > requirements.txt\
+\pard\pardeftab720\sl340\partightenfactor0
+\cf4 cd PythonBlackBelt\
+touch .gitignore\
+vi .gitignore\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+*.pyc\
+venv/\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+git init\
+git add --all\
+git commit -m "initial commit"\
+git remote add origin https://github.com/ectom/PythonBlackBelt.git\
+git push origin master\
+cd ~\
+cd Desktop/aws\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f0\fs28 \cf6 \cb7 chmod 400 akey.pem\
+\pard\pardeftab720\sl380\partightenfactor0
+\cf8 \cb9 \outl0\strokewidth0 \strokec8 ssh -i "thekey.pem" ubuntu@ec2-52-15-237-9.us-east-2.compute.amazonaws.com\cf6 \cb7 \outl0\strokewidth0 \
+\pard\pardeftab720\sl340\partightenfactor0
+
+\f1\fs24 \cf4 \cb5 sudo apt-get update\
+sudo apt-get install python-pip python-dev nginx git\
+sudo apt-get update\
+sudo pip install virtualenv\
+git clone https://github.com/ectom/PythonBlackBelt.git\
+cd PythonBlackBelt\
+virtualenv venv\
+source venv/bin/activate\
+pip install -r requirements.txt\
+pip install django bcrypt django-extensions\
+pip install gunicorn\
+cd PythonBlackBelt\
+sudo vim settings.py\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+# Inside settings.py\
+# modify these lines\
+DEBUG = False\
+ALLOWED_HOSTS = ['
+\f2\fs26 \cf8 \cb1 \outl0\strokewidth0 \strokec8 52.15.237.9
+\f1\fs24 \cf4 \cb5 \outl0\strokewidth0 ']\
+# add the line below to the bottom of the file\
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+cd ..\
+python manage.py collectstatic\
+gunicorn --bind 0.0.0.0:8000 PythonBlackBelt.wsgi:application\
+ctrl-c\
+deactivate\
+sudo vim /etc/systemd/system/gunicorn.service\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+[Unit]\
+Description=gunicorn daemon\
+After=network.target\
+[Service]\
+User=ubuntu\
+Group=www-data\
+WorkingDirectory=/home/ubuntu/PythonBlackBelt\
+ExecStart=/home/ubuntu/PythonBlackBelt/venv/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/PythonBlackBelt/PythonBlackBelt.sock PythonBlackBelt.wsgi:application\
+[Install]\
+WantedBy=multi-user.target\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+sudo systemctl daemon-reload\
+sudo systemctl start gunicorn\
+sudo systemctl enable gunicorn\
+sudo vim /etc/nginx/sites-available/PythonBlackBelt\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+server \{\
+  listen 80;\
+  server_name 
+\f2\fs26 \cf8 \cb1 \outl0\strokewidth0 \strokec8 52.15.237.9
+\f1\fs24 \cf4 \cb5 \outl0\strokewidth0 ;\
+  location = /favicon.ico \{ access_log off; log_not_found off; \}\
+  location /static/ \{\
+      root /home/ubuntu/PythonBlackBelt;\
+  \}\
+  location / \{\
+      include proxy_params;\
+      proxy_pass http://unix:/home/ubuntu/PythonBlackBelt/PythonBlackBelt.sock;\
+  \}\
+\}\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+sudo ln -s /etc/nginx/sites-available/PythonBlackBelt /etc/nginx/sites-enabled\
+sudo nginx -t\
+\pard\pardeftab720\sl340\partightenfactor0
+\cf10 \cb11 \outl0\strokewidth0 \strokec10 sudo rm /etc/nginx/sites-enabled/default\
+sudo service nginx restart\
+\pard\pardeftab720\sl340\partightenfactor0
+\cf4 \cb5 \outl0\strokewidth0 \
+}

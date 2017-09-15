@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Success Page</title>
+    </head>
+    <body>
+        <div class="thank" style='background-color: green; border: 1px solid black;'>
+            The email address you entered is a VALID email addres! Thank you!
+        </div>
+        <h2 style='text-decoration: underline;'>Email Addresses Entered:</h2>
+            {% for email in all_emails: %}
+                {{email['email']}} {{email['created_at']}}
+                <hr>
+            {% endfor %}
+
+        <form class="" action="delete" method="post">
+            Enter Email to be Deleted: <input type="type" name="delete" value="">
+            <button type="submit" name="d_submit">Delete</button>
+        </form>
+    </body>
+</html>
